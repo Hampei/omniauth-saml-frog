@@ -11,9 +11,11 @@ module OmniAuth
         @attributes.each do |k,v|
           inf[k.tr(' ', '_').downcase.to_sym] = v[0]
         end
-        inf[:email] = inf[:email_address]
-        inf[:name]  = inf[:display_name] ||
-                      "#{inf[:first_name]} #{inf[:last_name]}"
+        inf[:first_name] ||= inf[:forename]
+        inf[:last_name] ||= inf[:surname]
+        inf[:email] ||= inf[:email_address]
+        inf[:name]  ||= inf[:displayname] ||
+                        "#{inf[:first_name]} #{inf[:last_name]}"
         inf
       end
     end
